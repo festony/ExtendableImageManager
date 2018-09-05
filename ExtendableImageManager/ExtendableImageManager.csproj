@@ -46,11 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\MainControl.cs" />
-    <Compile Include="DB\FileFilter.cs" />
-    <Compile Include="DB\IDbForImage.cs" />
-    <Compile Include="DB\ImplFake\FakeImageDbSimulator.cs" />
-    <Compile Include="DB\Model\ImageItem.cs" />
-    <Compile Include="DB\Model\TagItem.cs" />
+    <Compile Include="Persistence\FileFilter.cs" />
+    <Compile Include="Persistence\IPersistenceForImage.cs" />
+    <Compile Include="Persistence\ImplFake\FakePersistenceSimulator.cs" />
+    <Compile Include="Persistence\Model\ImageItem.cs" />
+    <Compile Include="Persistence\Model\TagItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\MainForm.cs">

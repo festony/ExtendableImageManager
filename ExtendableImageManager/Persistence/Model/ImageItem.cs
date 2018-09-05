@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExtendableImageManager.DB.Model
+namespace ExtendableImageManager.Persistence.Model
 {
     public class ImageItem
     {

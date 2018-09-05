@@ -1,4 +1,4 @@
-﻿using ExtendableImageManager.DB.Model;
+﻿using ExtendableImageManager.Persistence.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

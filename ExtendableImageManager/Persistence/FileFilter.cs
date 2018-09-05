@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExtendableImageManager.DB.Model
+namespace ExtendableImageManager.Persistence
 {
-    public class TagItem
+    public class FileFilter
     {
-        public string tagName;
-        public string tagType;
+        List<List<string>> AndOrCriteria { get; set; }
     }
 }

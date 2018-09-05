@@ -1,4 +1,4 @@
-﻿using ExtendableImageManager.DB.Model;
+﻿using ExtendableImageManager.Persistence.Model;
 using ExtendableImageManager.Utils;
 using System;
 using System.Collections.Generic;
@@ -10,9 +10,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExtendableImageManager.DB.ImplFake
+namespace ExtendableImageManager.Persistence.ImplFake
 {
-    class FakeImageDbSimulator : IDbForImage
+    class FakePersistenceSimulator : IPersistenceForImage
     {
         private static string IMAGE_DATA_FILE_NAME = "imageData";
         //private static string ARTISTS_DATA_FILE_NAME = "artistsData";
@@ -32,7 +32,7 @@ namespace ExtendableImageManager.DB.ImplFake
         private Dictionary<string, TagItem> _tags;
         private Dictionary<string, TagItem> _ignoredTags;
 
-        public FakeImageDbSimulator()
+        public FakePersistenceSimulator()
         {
             _initialized = false;
 

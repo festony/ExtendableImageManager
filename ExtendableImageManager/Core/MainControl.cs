@@ -1,5 +1,5 @@
-﻿using ExtendableImageManager.DB;
-using ExtendableImageManager.DB.ImplFake;
+﻿using ExtendableImageManager.Persistence;
+using ExtendableImageManager.Persistence.ImplFake;
 using ExtendableImageManager.UI;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace ExtendableImageManager.Core
     public class MainControl
     {
         private MainForm _mainForm;
-        private IDbForImage _db;
+        private IPersistenceForImage _persistence;
 
         public MainForm MainForm
         {
@@ -24,28 +24,28 @@ namespace ExtendableImageManager.Core
             }
         }
 
-        public IDbForImage Db
+        public IPersistenceForImage Db
         {
             get
             {
-                return _db;
+                return _persistence;
             }
         }
 
         public MainControl()
         {
             _mainForm = new MainForm(this);
-            _db = new FakeImageDbSimulator();
+            _persistence = new FakePersistenceSimulator();
         }
 
         public void Init(string baseFolder)
         {
-            _db.Init(baseFolder);
+            _persistence.Init(baseFolder);
         }
 
         public void Uninit()
         {
-            _db.Uninit();
+            _persistence.Uninit();
         }
 
         /// <summary>
