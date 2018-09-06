@@ -1,4 +1,5 @@
-﻿using ExtendableImageManager.Persistence.Model;
+﻿using ExtendableImageManager.Core;
+using ExtendableImageManager.Persistence.Model;
 using ExtendableImageManager.Utils;
 using System;
 using System.Collections.Generic;
@@ -19,13 +20,12 @@ namespace ExtendableImageManager.Persistence.ImplFake
         private static string TAGS_DATA_FILE_NAME = "tagsData";
         private static string IGNORED_TAGS_DATA_FILE_NAME = "ignoredTagsData";
 
+        private MainControl _mainControl;
         private string _baseFolder;
         private string _imageItemsDataFilePath;
         //private string _artistsDataFilePath;
         private string _tagsDataFilePath;
         private string _ignoredTagsDataFilePath;
-
-        private bool _initialized;
 
         private Dictionary<string, ImageItem> _imageItems;
         //private Dictionary<string, TagItem> _artists;
@@ -34,22 +34,19 @@ namespace ExtendableImageManager.Persistence.ImplFake
 
         public FakePersistenceSimulator()
         {
-            _initialized = false;
-
             _imageItems = new Dictionary<string, ImageItem>();
             //_artists = new Dictionary<string, TagItem>();
             _tags = new Dictionary<string, TagItem>();
             _ignoredTags = new Dictionary<string, TagItem>();
         }
 
-        public void Init(string baseFolder)
+        public void Init(MainControl mainControl)
         {
-            if (_initialized)
+            if (_mainControl != null)
             {
                 Uninit();
             }
-
-            _baseFolder = baseFolder;
+            _baseFolder = mainControl.BaseFolder;
             Directory.CreateDirectory(_baseFolder);
 
             _imageItemsDataFilePath = Path.Combine(_baseFolder, IMAGE_DATA_FILE_NAME);
@@ -86,16 +83,16 @@ namespace ExtendableImageManager.Persistence.ImplFake
                 }
             }
 
-            _initialized = true;
+            _mainControl = mainControl;
         }
 
         public void Uninit()
         {
-            if (!_initialized)
+            if (_mainControl == null)
             {
                 return;
             }
-            _initialized = false;
+            _mainControl = null;
 
             var uninitMatrix = new Dictionary<string, object>
             {
@@ -136,7 +133,7 @@ namespace ExtendableImageManager.Persistence.ImplFake
         private TagItem addTagIfNotExist(string tagName, string tagType)
         {
             // TODO: maybe change this to exception throw
-            if (!_initialized)
+            if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
                 return null;
@@ -159,7 +156,7 @@ namespace ExtendableImageManager.Persistence.ImplFake
 
         public bool AddImage(string filename, string url, Dictionary<string, string> tags)
         {
-            if (!_initialized)
+            if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
                 return false;
@@ -189,7 +186,7 @@ namespace ExtendableImageManager.Persistence.ImplFake
 
         public List<ImageItem> GetImages(FileFilter filter)
         {
-            if (!_initialized)
+            if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
                 return null;
@@ -200,7 +197,7 @@ namespace ExtendableImageManager.Persistence.ImplFake
 
         public void IgnoreTag(string tag)
         {
-            if (!_initialized)
+            if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
                 return;
@@ -213,7 +210,7 @@ namespace ExtendableImageManager.Persistence.ImplFake
 
         public void UnignoreTag(string tag)
         {
-            if (!_initialized)
+            if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
                 return;

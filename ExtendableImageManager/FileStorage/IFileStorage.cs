@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExtendableImageManager.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,9 @@ namespace ExtendableImageManager.FileStorage
 {
     public interface IFileStorage
     {
-        void Init(string baseFolder);
+        void Init(MainControl mainControl);
+
+        string GetTempFilePath(string postfix);
 
         string PutFile(string filePath);
 

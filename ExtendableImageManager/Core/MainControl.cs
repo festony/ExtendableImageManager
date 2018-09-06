@@ -1,4 +1,6 @@
-﻿using ExtendableImageManager.FileStorage;
+﻿using ExtendableImageManager.Crawler;
+using ExtendableImageManager.Crawler.BasicImpl;
+using ExtendableImageManager.FileStorage;
 using ExtendableImageManager.FileStorage.HierarchyImpl;
 using ExtendableImageManager.Persistence;
 using ExtendableImageManager.Persistence.ImplFake;
@@ -19,6 +21,15 @@ namespace ExtendableImageManager.Core
         private MainForm _mainForm;
         private IPersistenceForImage _persistence;
         private IFileStorage _fileStorage;
+        private ICrawler _crawler;
+
+        public string BaseFolder
+        {
+            get
+            {
+                return _baseFolder;
+            }
+        }
 
         public MainForm MainForm
         {
@@ -44,18 +55,30 @@ namespace ExtendableImageManager.Core
             }
         }
 
+        public ICrawler Crawler
+        {
+            get
+            {
+                return _crawler;
+            }
+        }
+
         public MainControl()
         {
-            _mainForm = new MainForm(this);
+            _mainForm = new MainForm();
+            _mainForm.Init(this);
             _persistence = new FakePersistenceSimulator();
             _fileStorage = new HierarchyFileStorage();
+            _crawler = new SimpleCrawler();
         }
 
         public void Init(string baseFolder)
         {
             _baseFolder = baseFolder;
-            _persistence.Init(_baseFolder);
-            _fileStorage.Init(_baseFolder);
+            _mainForm.Init(this);
+            _persistence.Init(this);
+            _fileStorage.Init(this);
+            _crawler.Init(this);
         }
 
         public void Uninit()

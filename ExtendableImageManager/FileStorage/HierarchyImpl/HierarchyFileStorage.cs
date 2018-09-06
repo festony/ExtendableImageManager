@@ -1,4 +1,5 @@
-﻿using ExtendableImageManager.Utils;
+﻿using ExtendableImageManager.Core;
+using ExtendableImageManager.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,11 +13,18 @@ namespace ExtendableImageManager.FileStorage.HierarchyImpl
     public class HierarchyFileStorage : IFileStorage
     {
         private static string FILE_FOLDER_NAME = "efiles";
-        private string _fileFolder;
+        private static string TEMP_FILE_FOLDER_NAME = "temp";
 
-        public void Init(string baseFolder)
+        private MainControl _mainControl;
+        private string _fileFolder;
+        private string _tempFileFolder;
+
+        public void Init(MainControl mainControl)
         {
-            _fileFolder = Path.Combine(baseFolder, FILE_FOLDER_NAME);
+            _fileFolder = Path.Combine(mainControl.BaseFolder, FILE_FOLDER_NAME);
+            _tempFileFolder = Path.Combine(_fileFolder, TEMP_FILE_FOLDER_NAME);
+            Directory.CreateDirectory(_tempFileFolder);
+            _mainControl = mainControl;
         }
 
         private string getDirectoryPath(string fileName)
@@ -54,6 +62,16 @@ namespace ExtendableImageManager.FileStorage.HierarchyImpl
             return randomFileName + postfix;
         }
 
+        public string GetTempFilePath(string postfix)
+        {
+            if (_fileFolder == null)
+            {
+                Trace.WriteLine("Error: function called before initialize.");
+                return null;
+            }
+            return RandomFileNameUtils.GetTempFileName(_tempFileFolder, postfix);
+        }
+
         public string PutFile(string filePath)
         {
             if (_fileFolder == null)
@@ -61,7 +79,6 @@ namespace ExtendableImageManager.FileStorage.HierarchyImpl
                 Trace.WriteLine("Error: function called before initialize.");
                 return null;
             }
-            // TODO: implement this
             var targetFileName = getRandomFileName(Path.GetExtension(filePath));
             var targetFileFullPath = getFullPath(targetFileName);
             Directory.CreateDirectory(getDirectoryPath(targetFileName));
@@ -76,7 +93,6 @@ namespace ExtendableImageManager.FileStorage.HierarchyImpl
                 Trace.WriteLine("Error: function called before initialize.");
                 return null;
             }
-            // TODO: implement this
             return getFullPath(fileName);
         }
 

@@ -46,6 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\MainControl.cs" />
+    <Compile Include="Crawler\BasicImpl\SimpleCrawler.cs" />
+    <Compile Include="Crawler\BasicImpl\WebDownload.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Crawler\ICrawler.cs" />
     <Compile Include="FileStorage\HierarchyImpl\HierarchyFileStorage.cs" />
     <Compile Include="FileStorage\IFileStorage.cs" />
     <Compile Include="Persistence\FileFilter.cs" />

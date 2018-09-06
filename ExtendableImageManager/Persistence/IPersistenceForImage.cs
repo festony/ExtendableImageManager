@@ -1,4 +1,5 @@
-﻿using ExtendableImageManager.Persistence.Model;
+﻿using ExtendableImageManager.Core;
+using ExtendableImageManager.Persistence.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace ExtendableImageManager.Persistence
 {
     public interface IPersistenceForImage
     {
-        void Init(string baseFolder);
+        void Init(MainControl mainControl);
 
         void Uninit();
 
