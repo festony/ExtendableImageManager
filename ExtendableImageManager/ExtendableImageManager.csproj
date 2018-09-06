@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\MainControl.cs" />
+    <Compile Include="FileStorage\HierarchyImpl\HierarchyFileStorage.cs" />
+    <Compile Include="FileStorage\IFileStorage.cs" />
     <Compile Include="Persistence\FileFilter.cs" />
     <Compile Include="Persistence\IPersistenceForImage.cs" />
     <Compile Include="Persistence\ImplFake\FakePersistenceSimulator.cs" />
@@ -59,6 +61,7 @@
     <Compile Include="UI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\HashingUtils.cs" />
     <Compile Include="Utils\ModelUtils.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
