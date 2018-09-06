@@ -28,6 +28,7 @@ namespace ExtendableImageManager.UI
 
         private void button1_Click(object sender, EventArgs e)
         {
+            _mainControl.Uninit();
             _mainControl.Init(textBox1.Text);
         }
     }

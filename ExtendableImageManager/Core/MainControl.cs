@@ -1,4 +1,6 @@
-﻿using ExtendableImageManager.Persistence;
+﻿using ExtendableImageManager.FileStorage;
+using ExtendableImageManager.FileStorage.HierarchyImpl;
+using ExtendableImageManager.Persistence;
 using ExtendableImageManager.Persistence.ImplFake;
 using ExtendableImageManager.UI;
 using System;
@@ -13,8 +15,10 @@ namespace ExtendableImageManager.Core
 {
     public class MainControl
     {
+        private string _baseFolder;
         private MainForm _mainForm;
         private IPersistenceForImage _persistence;
+        private IFileStorage _fileStorage;
 
         public MainForm MainForm
         {
@@ -24,7 +28,7 @@ namespace ExtendableImageManager.Core
             }
         }
 
-        public IPersistenceForImage Db
+        public IPersistenceForImage Persistence
         {
             get
             {
@@ -32,20 +36,32 @@ namespace ExtendableImageManager.Core
             }
         }
 
+        public IFileStorage FileStorage
+        {
+            get
+            {
+                return _fileStorage;
+            }
+        }
+
         public MainControl()
         {
             _mainForm = new MainForm(this);
             _persistence = new FakePersistenceSimulator();
+            _fileStorage = new HierarchyFileStorage();
         }
 
         public void Init(string baseFolder)
         {
-            _persistence.Init(baseFolder);
+            _baseFolder = baseFolder;
+            _persistence.Init(_baseFolder);
+            _fileStorage.Init(_baseFolder);
         }
 
         public void Uninit()
         {
             _persistence.Uninit();
+            _baseFolder = null;
         }
 
         /// <summary>

@@ -61,7 +61,7 @@
     <Compile Include="UI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utils\HashingUtils.cs" />
+    <Compile Include="Utils\RandomFileNameUtils.cs" />
     <Compile Include="Utils\ModelUtils.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

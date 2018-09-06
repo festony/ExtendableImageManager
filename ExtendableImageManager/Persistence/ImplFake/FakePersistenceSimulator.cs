@@ -135,6 +135,12 @@ namespace ExtendableImageManager.Persistence.ImplFake
 
         private TagItem addTagIfNotExist(string tagName, string tagType)
         {
+            // TODO: maybe change this to exception throw
+            if (!_initialized)
+            {
+                Trace.WriteLine("Error: function called before initialize.");
+                return null;
+            }
             TagItem tag;
             if (_tags.ContainsKey(tagName))
             {
@@ -153,6 +159,11 @@ namespace ExtendableImageManager.Persistence.ImplFake
 
         public bool AddImage(string filename, string url, Dictionary<string, string> tags)
         {
+            if (!_initialized)
+            {
+                Trace.WriteLine("Error: function called before initialize.");
+                return false;
+            }
             if (_imageItems.ContainsKey(filename))
             {
                 return false;
@@ -178,12 +189,22 @@ namespace ExtendableImageManager.Persistence.ImplFake
 
         public List<ImageItem> GetImages(FileFilter filter)
         {
+            if (!_initialized)
+            {
+                Trace.WriteLine("Error: function called before initialize.");
+                return null;
+            }
             // TODO: implement this
             return null;
         }
 
         public void IgnoreTag(string tag)
         {
+            if (!_initialized)
+            {
+                Trace.WriteLine("Error: function called before initialize.");
+                return;
+            }
             if (_tags.ContainsKey(tag))
             {
                 _ignoredTags[tag] = _tags[tag];
@@ -192,6 +213,11 @@ namespace ExtendableImageManager.Persistence.ImplFake
 
         public void UnignoreTag(string tag)
         {
+            if (!_initialized)
+            {
+                Trace.WriteLine("Error: function called before initialize.");
+                return;
+            }
             if (_ignoredTags.ContainsKey(tag))
             {
                 _ignoredTags.Remove(tag);
