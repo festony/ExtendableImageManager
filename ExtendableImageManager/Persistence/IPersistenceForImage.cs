@@ -23,5 +23,7 @@ namespace ExtendableImageManager.Persistence
         void IgnoreTag(string tag);
 
         void UnignoreTag(string tag);
+
+        Dictionary<string, TagItem> AllIgnoredTags { get; }
     }
 }

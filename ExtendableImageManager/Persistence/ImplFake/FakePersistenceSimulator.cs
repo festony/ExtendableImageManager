@@ -220,5 +220,13 @@ namespace ExtendableImageManager.Persistence.ImplFake
                 _ignoredTags.Remove(tag);
             }
         }
+
+        public Dictionary<string, TagItem> AllIgnoredTags
+        {
+            get
+            {
+                return _ignoredTags;
+            }
+        }
     }
 }

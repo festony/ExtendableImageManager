@@ -34,9 +34,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(351, 268);
+            this.button1.Location = new System.Drawing.Point(378, 290);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(75, 21);
             this.button1.TabIndex = 0;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -44,17 +44,17 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(327, 217);
+            this.textBox1.Location = new System.Drawing.Point(207, 281);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.Size = new System.Drawing.Size(100, 21);
             this.textBox1.TabIndex = 1;
             this.textBox1.Text = "C:\\test";
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(567, 360);
+            this.ClientSize = new System.Drawing.Size(567, 332);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Name = "MainForm";
