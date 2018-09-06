@@ -38,5 +38,11 @@ namespace ExtendableImageManager.UI
         {
             _mainControl = mainControl;
         }
+
+        private void buttonLoad_Click(object sender, EventArgs e)
+        {
+            _mainControl.Uninit();
+            _mainControl.Init(textBoxBaseFolder.Text);
+        }
     }
 }
