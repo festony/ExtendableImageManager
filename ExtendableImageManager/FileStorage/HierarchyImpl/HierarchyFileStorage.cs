@@ -27,6 +27,8 @@ namespace ExtendableImageManager.FileStorage.HierarchyImpl
             _mainControl = mainControl;
         }
 
+        // TODO: input argument checking - what if null / empty etc etc?
+
         private string getDirectoryPath(string fileName)
         {
             // TODO: maybe change this to exception throw
@@ -96,5 +98,39 @@ namespace ExtendableImageManager.FileStorage.HierarchyImpl
             return getFullPath(fileName);
         }
 
+        private void deleteEmptyFolder(string folderPath)
+        {
+            if (!Directory.Exists(folderPath))
+            {
+                // TODO: or throw exception?
+                return;
+            }
+            if (Directory.EnumerateFileSystemEntries(folderPath).Any())
+            {
+                return;
+            }
+            var parentFolder = Directory.GetParent(folderPath).FullName;
+            Directory.Delete(folderPath);
+            deleteEmptyFolder(parentFolder);
+        }
+
+        public bool DeleteFile(string fileName)
+        {
+            if (_fileFolder == null)
+            {
+                Trace.WriteLine("Error: function called before initialize.");
+                return false;
+            }
+            var filePath = getFullPath(fileName);
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+            var parentPath = Path.GetDirectoryName(filePath);
+            deleteEmptyFolder(parentPath);
+
+            return false;
+        }
     }
 }

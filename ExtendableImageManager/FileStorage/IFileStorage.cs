@@ -16,5 +16,7 @@ namespace ExtendableImageManager.FileStorage
         string PutFile(string filePath);
 
         string GetFile(string fileName);
+
+        bool DeleteFile(string fileName);
     }
 }
