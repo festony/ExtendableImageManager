@@ -161,13 +161,13 @@ namespace ExtendableImageManager.Fetcher.SkkImpl
         //    }
         //}
 
-        public void Fetch(List<string> urls)
+        public List<string> ExtractPageUrls(List<string> urls)
         {
             // TODO: maybe change this to exception throw
             if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
-                return;
+                return null;
             }
             // TODO: implement this
             var postUrls = new HashSet<string>();
@@ -197,14 +197,12 @@ namespace ExtendableImageManager.Fetcher.SkkImpl
 
             Trace.WriteLine("Skk Fetcher: " + postUrls.Count + " posts in total.");
 
-            var i = 1;
-            foreach (var url in postUrls)
-            {
-                Thread.Sleep(500);
-                fetchPost(url);
-                Trace.WriteLine("Skk Fetcher: Done fetching " + i + " / " + postUrls.Count + " .");
-                i++;
-            }
+            return postUrls.ToList();
+        }
+
+        public void Fetch(string pageUrl)
+        {
+            fetchPost(pageUrl);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ExtendableImageManager.Core;
+using ExtendableImageManager.Persistence.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace ExtendableImageManager.Fetcher
     {
         void Init(MainControl mainControl);
 
-        void Fetch(List<string> urls);
+        List<string> ExtractPageUrls(List<string> urls);
+
+        void Fetch(string pageUrl);
     }
 }
