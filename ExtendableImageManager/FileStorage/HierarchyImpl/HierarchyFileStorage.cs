@@ -85,7 +85,7 @@ namespace ExtendableImageManager.FileStorage.HierarchyImpl
             var targetFileFullPath = getFullPath(targetFileName);
             Directory.CreateDirectory(getDirectoryPath(targetFileName));
             File.Move(filePath, targetFileFullPath);
-            return null;
+            return targetFileName;
         }
 
         public string GetFile(string fileName)

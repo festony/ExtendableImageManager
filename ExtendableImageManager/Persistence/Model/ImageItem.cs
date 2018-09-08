@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace ExtendableImageManager.Persistence.Model
 {
+    [Serializable]
     public class ImageItem
     {
         public string fileName;
-        public string url;
+        public string pageUrl;
         public List<TagItem> tags;
 
         public DateTime created;

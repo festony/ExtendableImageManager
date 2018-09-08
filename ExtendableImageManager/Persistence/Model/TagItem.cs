@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExtendableImageManager.Persistence.Model
 {
+    [Serializable]
     public class TagItem
     {
         public string tagName;

@@ -44,5 +44,10 @@ namespace ExtendableImageManager.UI
             _mainControl.Uninit();
             _mainControl.Init(textBoxBaseFolder.Text);
         }
+
+        private void buttonTest_Click(object sender, EventArgs e)
+        {
+            _mainControl.TestForm.Show();
+        }
     }
 }

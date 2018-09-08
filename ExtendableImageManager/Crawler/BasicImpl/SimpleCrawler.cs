@@ -19,6 +19,7 @@ namespace ExtendableImageManager.Crawler.BasicImpl
 
         private MainControl _mainControl;
         private int _timeout;
+        // TODO: move webClient here - then also need Uninit to close the client.
 
         public int Timeout
         {

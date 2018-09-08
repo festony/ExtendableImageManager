@@ -16,26 +16,22 @@ namespace ExtendableImageManager.Persistence.ImplFake
     class FakePersistenceSimulator : IPersistenceForImage
     {
         private static string IMAGE_DATA_FILE_NAME = "imageData";
-        //private static string ARTISTS_DATA_FILE_NAME = "artistsData";
         private static string TAGS_DATA_FILE_NAME = "tagsData";
         private static string IGNORED_TAGS_DATA_FILE_NAME = "ignoredTagsData";
 
         private MainControl _mainControl;
         private string _baseFolder;
         private string _imageItemsDataFilePath;
-        //private string _artistsDataFilePath;
         private string _tagsDataFilePath;
         private string _ignoredTagsDataFilePath;
 
         private Dictionary<string, ImageItem> _imageItems;
-        //private Dictionary<string, TagItem> _artists;
         private Dictionary<string, TagItem> _tags;
         private Dictionary<string, TagItem> _ignoredTags;
 
         public FakePersistenceSimulator()
         {
             _imageItems = new Dictionary<string, ImageItem>();
-            //_artists = new Dictionary<string, TagItem>();
             _tags = new Dictionary<string, TagItem>();
             _ignoredTags = new Dictionary<string, TagItem>();
         }
@@ -50,14 +46,12 @@ namespace ExtendableImageManager.Persistence.ImplFake
             Directory.CreateDirectory(_baseFolder);
 
             _imageItemsDataFilePath = Path.Combine(_baseFolder, IMAGE_DATA_FILE_NAME);
-            //_artistsDataFilePath = Path.Combine(_baseFolder, ARTISTS_DATA_FILE_NAME);
             _tagsDataFilePath = Path.Combine(_baseFolder, TAGS_DATA_FILE_NAME);
             _ignoredTagsDataFilePath = Path.Combine(_baseFolder, IGNORED_TAGS_DATA_FILE_NAME);
 
             var initMatrix = new Dictionary<string, object>
             {
                 { _imageItemsDataFilePath, null },
-                //{ _artistsDataFilePath, null },
                 { _tagsDataFilePath, null },
                 { _ignoredTagsDataFilePath, null }
             };
@@ -83,6 +77,19 @@ namespace ExtendableImageManager.Persistence.ImplFake
                 }
             }
 
+            if (initMatrix[_imageItemsDataFilePath] != null)
+            {
+                _imageItems = (Dictionary<string, ImageItem>)initMatrix[_imageItemsDataFilePath];
+            }
+            if (initMatrix[_tagsDataFilePath] != null)
+            {
+                _tags = (Dictionary<string, TagItem>)initMatrix[_tagsDataFilePath];
+            }
+            if (initMatrix[_ignoredTagsDataFilePath] != null)
+            {
+                _ignoredTags = (Dictionary<string, TagItem>)initMatrix[_ignoredTagsDataFilePath];
+            }
+
             _mainControl = mainControl;
         }
 
@@ -97,7 +104,6 @@ namespace ExtendableImageManager.Persistence.ImplFake
             var uninitMatrix = new Dictionary<string, object>
             {
                 { _imageItemsDataFilePath, _imageItems },
-                //{ _artistsDataFilePath, _artists },
                 { _tagsDataFilePath, _tags },
                 { _ignoredTagsDataFilePath, _ignoredTags }
             };
@@ -126,7 +132,6 @@ namespace ExtendableImageManager.Persistence.ImplFake
             
             _ignoredTags.Clear();
             _tags.Clear();
-            //_artists.Clear();
             _imageItems.Clear();
         }
 
@@ -168,11 +173,12 @@ namespace ExtendableImageManager.Persistence.ImplFake
 
             var image = new ImageItem();
             image.fileName = filename;
-            image.url = url;
+            image.pageUrl = url;
             image.tags = tags.Select(pair => addTagIfNotExist(pair.Key, pair.Value)).ToList();
             image.created = DateTime.Now;
 
             _imageItems[filename] = image;
+
             return true;
         }
 
@@ -192,6 +198,11 @@ namespace ExtendableImageManager.Persistence.ImplFake
                 return null;
             }
             // TODO: implement this
+            if (filter == null)
+            {
+                // return all images;
+                return _imageItems.Values.ToList();
+            }
             return null;
         }
 

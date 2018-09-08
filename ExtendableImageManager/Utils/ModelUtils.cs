@@ -26,7 +26,7 @@ namespace ExtendableImageManager.Utils
             }
             string s = "{\n";
             s += "\tfileName: " + image.fileName + ",\n";
-            s += "\turl: " + image.url + ",\n";
+            s += "\turl: " + image.pageUrl + ",\n";
             s += "\ttags: [\n";
             foreach (var t in image.tags)
             {
