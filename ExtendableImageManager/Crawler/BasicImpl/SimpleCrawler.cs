@@ -56,56 +56,56 @@ namespace ExtendableImageManager.Crawler.BasicImpl
             request.Timeout = _timeout;
             request.UserAgent = @"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36";
 
-            // TODO: try catch wrap this!!!!!! retry?
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-            if (response.StatusCode == HttpStatusCode.OK)
+            for (int i = 0; i < MAX_RETRY_TIME; i++)
             {
-                Stream receiveStream = response.GetResponseStream();
-                StreamReader readStream = null;
-
-                if (response.CharacterSet == null)
+                try
                 {
-                    readStream = new StreamReader(receiveStream);
-                }
-                else
-                {
-                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
-                }
-
-                for (int i = 0; i < MAX_RETRY_TIME; i++)
-                {
-                    try
+                    using(var response = (HttpWebResponse)request.GetResponse())
                     {
-                        html = readStream.ReadToEnd();
-                        break;
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+                            Stream receiveStream = response.GetResponseStream();
+                            StreamReader readStream = null;
+                            if (response.CharacterSet == null)
+                            {
+                                readStream = new StreamReader(receiveStream);
+                            }
+                            else
+                            {
+                                readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                            }
+                            html = readStream.ReadToEnd();
+                            response.Close();
+                            readStream.Close();
+                            return html;
+                        }
                     }
-                    catch (Exception e)
-                    {
-                        Trace.WriteLine("Failed to retrieve html data from url [" + url + "]: " + e);
-                    }
-                    Thread.Sleep(1000);
                 }
-
-                response.Close();
-                readStream.Close();
+                catch (Exception e)
+                {
+                    Trace.WriteLine("Failed to retrieve html data from url [" + url + "]: " + e);
+                    if (i < MAX_RETRY_TIME - 1)
+                    {
+                        Thread.Sleep(500);
+                        Trace.WriteLine("Retrying " + i + "-th time.");
+                    }
+                    else
+                    {
+                        Trace.WriteLine("Giving up.");
+                    }
+                }
             }
-
-            return html;
+            return "";
         }
 
-        public string FetchFile(string url)
+        private string fetchSingleFile(string url)
         {
-            if (_mainControl == null)
-            {
-                Trace.WriteLine("Error: function called before initialize.");
-                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
-            }
             using (WebClient webClient = new WebDownload(_timeout))
             {
                 try
                 {
-                    //webClient.DownloadFile(imageUrl, filepath);
+                    webClient.UseDefaultCredentials = true;
+                    webClient.Proxy = WebRequest.GetSystemWebProxy();
                     webClient.Headers.Add("user-agent", @"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36");
                     var bytes = webClient.DownloadData(url);
                     var totalBytes = Convert.ToInt64(webClient.ResponseHeaders["Content-Length"]);
@@ -132,7 +132,37 @@ namespace ExtendableImageManager.Crawler.BasicImpl
                     return null;
                 }
             }
-            //var tempFilePath = _mainControl.FileStorage.GetTempFilePath("?");
+
+        }
+
+        public string FetchFile(string url)
+        {
+            if (_mainControl == null)
+            {
+                Trace.WriteLine("Error: function called before initialize.");
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
+            }
+            string tempFilePath = null;
+            for (int i = 0; i < MAX_RETRY_TIME; i++)
+            {
+                tempFilePath = fetchSingleFile(url);
+                if (tempFilePath != null)
+                {
+                    return tempFilePath;
+                }
+                Trace.WriteLine("Failed to retrieve file data from url [" + url + "].");
+                if (i < MAX_RETRY_TIME - 1)
+                {
+                    Thread.Sleep(500);
+                    Trace.WriteLine("Retrying " + i + "-th time.");
+                }
+                else
+                {
+                    Trace.WriteLine("Giving up.");
+                }
+            }
+
+            return null;
         }
     }
 }

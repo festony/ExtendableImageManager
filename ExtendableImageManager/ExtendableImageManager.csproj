@@ -51,6 +51,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Crawler\ICrawler.cs" />
+    <Compile Include="UI\TagManagementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\TagManagementForm.Designer.cs">
+      <DependentUpon>TagManagementForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserException\ResourceNotInitializedException.cs" />
     <Compile Include="Fetcher\IFetcher.cs" />
     <Compile Include="Fetcher\SkkImpl\SkkFetcher.cs" />
@@ -98,6 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TagManagementForm.resx">
+      <DependentUpon>TagManagementForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TestForm.resx">
       <DependentUpon>TestForm.cs</DependentUpon>

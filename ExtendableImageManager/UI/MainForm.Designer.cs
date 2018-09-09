@@ -34,6 +34,7 @@
             this.buttonLoad = new System.Windows.Forms.Button();
             this.buttonTest = new System.Windows.Forms.Button();
             this.buttonFetch = new System.Windows.Forms.Button();
+            this.buttonTag = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -92,11 +93,22 @@
             this.buttonFetch.UseVisualStyleBackColor = true;
             this.buttonFetch.Click += new System.EventHandler(this.buttonFetch_Click);
             // 
+            // buttonTag
+            // 
+            this.buttonTag.Location = new System.Drawing.Point(118, 136);
+            this.buttonTag.Name = "buttonTag";
+            this.buttonTag.Size = new System.Drawing.Size(75, 50);
+            this.buttonTag.TabIndex = 6;
+            this.buttonTag.Text = "Tag";
+            this.buttonTag.UseVisualStyleBackColor = true;
+            this.buttonTag.Click += new System.EventHandler(this.buttonTag_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(687, 353);
+            this.Controls.Add(this.buttonTag);
             this.Controls.Add(this.buttonFetch);
             this.Controls.Add(this.buttonTest);
             this.Controls.Add(this.buttonLoad);
@@ -119,5 +131,6 @@
         private System.Windows.Forms.Button buttonLoad;
         private System.Windows.Forms.Button buttonTest;
         private System.Windows.Forms.Button buttonFetch;
+        private System.Windows.Forms.Button buttonTag;
     }
 }

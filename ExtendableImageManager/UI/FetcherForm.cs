@@ -60,6 +60,7 @@ namespace ExtendableImageManager.UI
             _pageUrls.AddRange(morePageUrls);
             textBoxTotal.Text = _pageUrls.Count.ToString();
             textBoxNotFetched.Text = (_pageUrls.Count - _fetchedPageUrls.Count).ToString();
+            MessageBox.Show("analysis done.");
         }
 
         private void buttonFetch_Click(object sender, EventArgs e)
@@ -74,22 +75,34 @@ namespace ExtendableImageManager.UI
                 MessageBox.Show("select fetcher");
                 return;
             }
+            var watch = Stopwatch.StartNew();
             var i = 0;
-            foreach(var url in _pageUrls)
+            try
             {
-                if (!_fetchedPageUrls.Contains(url))
+                foreach (var url in _pageUrls)
                 {
-                    Trace.WriteLine("----- fetching " + i + "-th url " + url);
-                    _mainControl.FetcherDict[comboBoxFetcher.Text].Fetch(url);
-                    _fetchedPageUrls.Add(url);
-                    i++;
-                    if (i > numericUpDownFetchBatchSize.Value)
+                    if (!_fetchedPageUrls.Contains(url))
                     {
-                        break;
+                        Trace.WriteLine("----- fetching " + i + "-th url " + url);
+                        _mainControl.FetcherDict[comboBoxFetcher.Text].Fetch(url);
+                        _fetchedPageUrls.Add(url);
+                        i++;
+                        if (i > numericUpDownFetchBatchSize.Value)
+                        {
+                            break;
+                        }
                     }
                 }
             }
-            MessageBox.Show("fetching done");
+            catch(Exception ex)
+            {
+                MessageBox.Show("Terminated: exception " + e);
+            }
+            watch.Stop();
+            MessageBox.Show("fetching done for " + i + " pages, in " + (watch.ElapsedMilliseconds / 1000f) + " seconds.");
+            textBoxTotal.Text = _pageUrls.Count.ToString();
+            textBoxNotFetched.Text = (_pageUrls.Count - _fetchedPageUrls.Count).ToString();
         }
     }
 }
+
