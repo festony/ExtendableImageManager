@@ -33,6 +33,7 @@
             this.textBoxBaseFolder = new System.Windows.Forms.TextBox();
             this.buttonLoad = new System.Windows.Forms.Button();
             this.buttonTest = new System.Windows.Forms.Button();
+            this.buttonFetch = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -81,11 +82,22 @@
             this.buttonTest.UseVisualStyleBackColor = true;
             this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
             // 
+            // buttonFetch
+            // 
+            this.buttonFetch.Location = new System.Drawing.Point(12, 136);
+            this.buttonFetch.Name = "buttonFetch";
+            this.buttonFetch.Size = new System.Drawing.Size(75, 50);
+            this.buttonFetch.TabIndex = 5;
+            this.buttonFetch.Text = "Fetch";
+            this.buttonFetch.UseVisualStyleBackColor = true;
+            this.buttonFetch.Click += new System.EventHandler(this.buttonFetch_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(687, 353);
+            this.Controls.Add(this.buttonFetch);
             this.Controls.Add(this.buttonTest);
             this.Controls.Add(this.buttonLoad);
             this.Controls.Add(this.textBoxBaseFolder);
@@ -106,5 +118,6 @@
         private System.Windows.Forms.TextBox textBoxBaseFolder;
         private System.Windows.Forms.Button buttonLoad;
         private System.Windows.Forms.Button buttonTest;
+        private System.Windows.Forms.Button buttonFetch;
     }
 }

@@ -182,6 +182,7 @@ namespace ExtendableImageManager.Fetcher.SkkImpl
                 }
                 else
                 {
+                    Thread.Sleep(300);
                     var moreUrls = fetchIndex(url);
                     postUrls.UnionWith(moreUrls);
                 }

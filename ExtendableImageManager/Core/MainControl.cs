@@ -22,6 +22,7 @@ namespace ExtendableImageManager.Core
         private string _baseFolder;
         private MainForm _mainForm;
         private TestForm _testForm;
+        private FetcherForm _fetcherForm;
         private IPersistenceForImage _persistence;
         private IFileStorage _fileStorage;
         private ICrawler _crawler;
@@ -48,6 +49,14 @@ namespace ExtendableImageManager.Core
             get
             {
                 return _testForm;
+            }
+        }
+
+        public FetcherForm FetcherForm
+        {
+            get
+            {
+                return _fetcherForm;
             }
         }
 
@@ -89,6 +98,7 @@ namespace ExtendableImageManager.Core
             _mainForm.Init(this);
             _testForm = new TestForm();
             _testForm.Init(this);
+            _fetcherForm = new FetcherForm();
             _persistence = new FakePersistenceSimulator();
             _fileStorage = new HierarchyFileStorage();
             _crawler = new SimpleCrawler();
@@ -103,6 +113,7 @@ namespace ExtendableImageManager.Core
             _baseFolder = baseFolder;
             //_mainForm.Init(this);
             //_testForm.Init(this);
+            _fetcherForm.Init(this);
             _persistence.Init(this);
             _fileStorage.Init(this);
             _crawler.Init(this);
@@ -111,6 +122,7 @@ namespace ExtendableImageManager.Core
         public void Uninit()
         {
             _persistence.Uninit();
+            _fetcherForm.Uninit();
             _baseFolder = null;
         }
 

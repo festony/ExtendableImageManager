@@ -47,11 +47,12 @@ namespace ExtendableImageManager.Crawler.BasicImpl
                 Trace.WriteLine("Error: function called before initialize.");
                 return null;
             }
-            string data = null;
+            string html = null;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Timeout = _timeout;
             request.UserAgent = @"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36";
 
+            // TODO: try catch wrap this!!!!!! retry?
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
             if (response.StatusCode == HttpStatusCode.OK)
@@ -72,7 +73,7 @@ namespace ExtendableImageManager.Crawler.BasicImpl
                 {
                     try
                     {
-                        data = readStream.ReadToEnd();
+                        html = readStream.ReadToEnd();
                         break;
                     }
                     catch (Exception e)
@@ -86,7 +87,7 @@ namespace ExtendableImageManager.Crawler.BasicImpl
                 readStream.Close();
             }
 
-            return data;
+            return html;
         }
 
         public string FetchFile(string url)

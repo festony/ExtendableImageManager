@@ -49,5 +49,10 @@ namespace ExtendableImageManager.UI
         {
             _mainControl.TestForm.Show();
         }
+
+        private void buttonFetch_Click(object sender, EventArgs e)
+        {
+            _mainControl.FetcherForm.Show();
+        }
     }
 }
