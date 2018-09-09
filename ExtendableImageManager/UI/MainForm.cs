@@ -1,8 +1,10 @@
 ﻿using ExtendableImageManager.Core;
+using ExtendableImageManager.UserException;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -47,11 +49,21 @@ namespace ExtendableImageManager.UI
 
         private void buttonTest_Click(object sender, EventArgs e)
         {
+            if (_mainControl == null)
+            {
+                Trace.WriteLine("Error: function called before initialize.");
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
+            }
             _mainControl.TestForm.Show();
         }
 
         private void buttonFetch_Click(object sender, EventArgs e)
         {
+            if (_mainControl == null)
+            {
+                Trace.WriteLine("Error: function called before initialize.");
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
+            }
             _mainControl.FetcherForm.Show();
         }
     }

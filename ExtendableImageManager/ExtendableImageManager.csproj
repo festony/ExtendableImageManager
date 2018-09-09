@@ -51,6 +51,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Crawler\ICrawler.cs" />
+    <Compile Include="UserException\ResourceNotInitializedException.cs" />
     <Compile Include="Fetcher\IFetcher.cs" />
     <Compile Include="Fetcher\SkkImpl\SkkFetcher.cs" />
     <Compile Include="FileStorage\HierarchyImpl\HierarchyFileStorage.cs" />

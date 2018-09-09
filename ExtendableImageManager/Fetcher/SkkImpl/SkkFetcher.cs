@@ -1,5 +1,6 @@
 ﻿using ExtendableImageManager.Core;
 using ExtendableImageManager.Persistence.Model;
+using ExtendableImageManager.UserException;
 using ExtendableImageManager.Utils;
 using System;
 using System.Collections.Generic;
@@ -163,11 +164,10 @@ namespace ExtendableImageManager.Fetcher.SkkImpl
 
         public List<string> ExtractPageUrls(List<string> urls)
         {
-            // TODO: maybe change this to exception throw
             if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
-                return null;
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
             }
             // TODO: implement this
             var postUrls = new HashSet<string>();
@@ -203,6 +203,11 @@ namespace ExtendableImageManager.Fetcher.SkkImpl
 
         public void Fetch(string pageUrl)
         {
+            if (_mainControl == null)
+            {
+                Trace.WriteLine("Error: function called before initialize.");
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
+            }
             fetchPost(pageUrl);
         }
     }

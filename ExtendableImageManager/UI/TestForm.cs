@@ -1,4 +1,5 @@
 ﻿using ExtendableImageManager.Core;
+using ExtendableImageManager.UserException;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,6 +29,11 @@ namespace ExtendableImageManager.UI
 
         private void buttonTest_Click(object sender, EventArgs e)
         {
+            if (_mainControl == null)
+            {
+                Trace.WriteLine("Error: function called before initialize.");
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
+            }
             //_mainControl.FetcherDict["skk"].Fetch(textBoxUrl.Text);
         }
 
@@ -39,6 +45,11 @@ namespace ExtendableImageManager.UI
 
         private void buttonTest2_Click(object sender, EventArgs e)
         {
+            if (_mainControl == null)
+            {
+                Trace.WriteLine("Error: function called before initialize.");
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
+            }
             Trace.WriteLine("----- image data");
             
         }

@@ -1,4 +1,5 @@
 ﻿using ExtendableImageManager.Core;
+using ExtendableImageManager.UserException;
 using ExtendableImageManager.Utils;
 using System;
 using System.Collections.Generic;
@@ -21,21 +22,20 @@ namespace ExtendableImageManager.FileStorage.HierarchyImpl
 
         public void Init(MainControl mainControl)
         {
-            _fileFolder = Path.Combine(mainControl.BaseFolder, FILE_FOLDER_NAME);
+            _mainControl = mainControl;
+            _fileFolder = Path.Combine(_mainControl.BaseFolder, FILE_FOLDER_NAME);
             _tempFileFolder = Path.Combine(_fileFolder, TEMP_FILE_FOLDER_NAME);
             Directory.CreateDirectory(_tempFileFolder);
-            _mainControl = mainControl;
         }
 
         // TODO: input argument checking - what if null / empty etc etc?
 
         private string getDirectoryPath(string fileName)
         {
-            // TODO: maybe change this to exception throw
-            if (_fileFolder == null)
+            if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
-                return null;
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
             }
             var fn = Path.GetFileNameWithoutExtension(fileName);
             var path = _fileFolder + Path.DirectorySeparatorChar;
@@ -66,20 +66,20 @@ namespace ExtendableImageManager.FileStorage.HierarchyImpl
 
         public string GetTempFilePath(string postfix)
         {
-            if (_fileFolder == null)
+            if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
-                return null;
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
             }
             return RandomFileNameUtils.GetTempFileName(_tempFileFolder, postfix);
         }
 
         public string PutFile(string filePath)
         {
-            if (_fileFolder == null)
+            if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
-                return null;
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
             }
             var targetFileName = getRandomFileName(Path.GetExtension(filePath));
             var targetFileFullPath = getFullPath(targetFileName);
@@ -90,10 +90,10 @@ namespace ExtendableImageManager.FileStorage.HierarchyImpl
 
         public string GetFile(string fileName)
         {
-            if (_fileFolder == null)
+            if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
-                return null;
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
             }
             return getFullPath(fileName);
         }
@@ -116,10 +116,10 @@ namespace ExtendableImageManager.FileStorage.HierarchyImpl
 
         public bool DeleteFile(string fileName)
         {
-            if (_fileFolder == null)
+            if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
-                return false;
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
             }
             var filePath = getFullPath(fileName);
 

@@ -1,4 +1,5 @@
 ﻿using ExtendableImageManager.Core;
+using ExtendableImageManager.UserException;
 using ExtendableImageManager.Utils;
 using System;
 using System.Collections.Generic;
@@ -33,19 +34,22 @@ namespace ExtendableImageManager.Crawler.BasicImpl
             }
         }
 
+        public SimpleCrawler()
+        {
+            _timeout = DEFAULT_TIMEOUT;
+        }
+
         public void Init(MainControl mainControl)
         {
             _mainControl = mainControl;
-            _timeout = DEFAULT_TIMEOUT;
         }
 
         public string FetchHtml(string url)
         {
-            // TODO: maybe change this to exception throw
             if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
-                return null;
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
             }
             string html = null;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
@@ -95,7 +99,7 @@ namespace ExtendableImageManager.Crawler.BasicImpl
             if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
-                return null;
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
             }
             using (WebClient webClient = new WebDownload(_timeout))
             {

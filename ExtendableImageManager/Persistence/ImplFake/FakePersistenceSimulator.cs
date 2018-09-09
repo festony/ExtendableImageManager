@@ -1,5 +1,6 @@
 ﻿using ExtendableImageManager.Core;
 using ExtendableImageManager.Persistence.Model;
+using ExtendableImageManager.UserException;
 using ExtendableImageManager.Utils;
 using System;
 using System.Collections.Generic;
@@ -137,11 +138,10 @@ namespace ExtendableImageManager.Persistence.ImplFake
 
         private TagItem addTagIfNotExist(string tagName, string tagType)
         {
-            // TODO: maybe change this to exception throw
             if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
-                return null;
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
             }
             TagItem tag;
             if (_tags.ContainsKey(tagName))
@@ -164,7 +164,7 @@ namespace ExtendableImageManager.Persistence.ImplFake
             if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
-                return false;
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
             }
             if (_imageItems.ContainsKey(filename))
             {
@@ -195,7 +195,7 @@ namespace ExtendableImageManager.Persistence.ImplFake
             if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
-                return null;
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
             }
             // TODO: implement this
             if (filter == null)
@@ -211,7 +211,7 @@ namespace ExtendableImageManager.Persistence.ImplFake
             if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
-                return;
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
             }
             if (_tags.ContainsKey(tag))
             {
@@ -224,7 +224,7 @@ namespace ExtendableImageManager.Persistence.ImplFake
             if (_mainControl == null)
             {
                 Trace.WriteLine("Error: function called before initialize.");
-                return;
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
             }
             if (_ignoredTags.ContainsKey(tag))
             {
