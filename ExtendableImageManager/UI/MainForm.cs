@@ -76,5 +76,15 @@ namespace ExtendableImageManager.UI
             }
             _mainControl.TagManagementForm.Show();
         }
+
+        private void buttonView_Click(object sender, EventArgs e)
+        {
+            if (_mainControl == null)
+            {
+                Trace.WriteLine("Error: function called before initialize.");
+                throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
+            }
+            _mainControl.ViewerForm.Show();
+        }
     }
 }

@@ -86,7 +86,7 @@ namespace ExtendableImageManager.Crawler.BasicImpl
                     Trace.WriteLine("Failed to retrieve html data from url [" + url + "]: " + e);
                     if (i < MAX_RETRY_TIME - 1)
                     {
-                        Thread.Sleep(500);
+                        Thread.Sleep(_mainControl.RetryIntervalPage);
                         Trace.WriteLine("Retrying " + i + "-th time.");
                     }
                     else
@@ -153,7 +153,7 @@ namespace ExtendableImageManager.Crawler.BasicImpl
                 Trace.WriteLine("Failed to retrieve file data from url [" + url + "].");
                 if (i < MAX_RETRY_TIME - 1)
                 {
-                    Thread.Sleep(500);
+                    Thread.Sleep(_mainControl.RetryIntervalPage);
                     Trace.WriteLine("Retrying " + i + "-th time.");
                 }
                 else

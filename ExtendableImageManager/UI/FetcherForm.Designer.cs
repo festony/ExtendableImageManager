@@ -75,7 +75,7 @@
             0});
             this.numericUpDownFetchBatchSize.Location = new System.Drawing.Point(259, 296);
             this.numericUpDownFetchBatchSize.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});

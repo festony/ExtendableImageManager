@@ -122,7 +122,7 @@ namespace ExtendableImageManager.Fetcher.SkkImpl
                 nextPageUrl = WebUtility.HtmlDecode(nextPageUrl);
                 nextPageUrl = host + "/post" + nextPageUrl;
                 //Trace.WriteLine("------- post nxt\n" + nextPageUrl);
-                Thread.Sleep(400);
+                Thread.Sleep(_mainControl.RetryIntervalIndex);
                 content = _mainControl.Crawler.FetchHtml(nextPageUrl);
                 subContent = content;
                 while (subContent.Contains("<a href=\"/post/show/"))
@@ -182,7 +182,7 @@ namespace ExtendableImageManager.Fetcher.SkkImpl
                 }
                 else
                 {
-                    Thread.Sleep(300);
+                    Thread.Sleep(_mainControl.RetryIntervalIndex);
                     var moreUrls = fetchIndex(url);
                     postUrls.UnionWith(moreUrls);
                 }

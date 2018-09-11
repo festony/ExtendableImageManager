@@ -19,6 +19,13 @@ namespace ExtendableImageManager.UI
         {
             InitializeComponent();
         }
+
+        private void TagManagementForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+        }
+
         public void Init(MainControl mainControl)
         {
             _mainControl = mainControl;
@@ -58,12 +65,6 @@ namespace ExtendableImageManager.UI
 
             toBeUnignored.ForEach(t => _mainControl.Persistence.UnignoreTag(t));
             updateData();
-        }
-
-        private void TagManagementForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            e.Cancel = true;
-            this.Hide();
         }
 
         private void TagManagementForm_Shown(object sender, EventArgs e)

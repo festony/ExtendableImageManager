@@ -176,6 +176,7 @@ namespace ExtendableImageManager.Persistence.ImplFake
             image.pageUrl = url;
             image.tags = tags.Select(pair => addTagIfNotExist(pair.Key, pair.Value)).ToList();
             image.created = DateTime.Now;
+            image.fetched = true;
 
             _imageItems[filename] = image;
 

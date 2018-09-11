@@ -17,6 +17,7 @@ namespace ExtendableImageManager.Persistence.Model
         //public int width = 0;
         //public int height = 0;
 
+        public bool fetched = false;
         public bool visited = false;
         public bool liked = false;
         public bool disliked = false;
