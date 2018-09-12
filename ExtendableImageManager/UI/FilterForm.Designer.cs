@@ -485,6 +485,8 @@
             // 
             this.checkBoxNotDisliked.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxNotDisliked.AutoSize = true;
+            this.checkBoxNotDisliked.Checked = true;
+            this.checkBoxNotDisliked.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxNotDisliked.Location = new System.Drawing.Point(961, 81);
             this.checkBoxNotDisliked.Name = "checkBoxNotDisliked";
             this.checkBoxNotDisliked.Size = new System.Drawing.Size(96, 16);
