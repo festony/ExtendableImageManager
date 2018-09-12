@@ -78,11 +78,11 @@ namespace ExtendableImageManager.UI
         {
             if (_imageItems[_currImageIndex].disliked)
             {
-                buttonLike.Text = "Undislike";
+                buttonDislike.Text = "Undislike";
             }
             else
             {
-                buttonLike.Text = "Dislike";
+                buttonDislike.Text = "Dislike";
             }
         }
 
