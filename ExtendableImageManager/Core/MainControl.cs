@@ -231,6 +231,8 @@ namespace ExtendableImageManager.Core
             _baseFolder = null;
         }
 
+        // TODO: implement disliked image deleting feature
+
         /// <summary>
         /// Run application by starting main form.
         /// </summary>
