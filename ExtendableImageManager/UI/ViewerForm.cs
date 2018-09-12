@@ -65,17 +65,31 @@ namespace ExtendableImageManager.UI
 
         private void updateLikeButtonText()
         {
-            // TODO: implement this
+            if (_imageItems[_currImageIndex].liked)
+            {
+                buttonLike.Text = "Unlike";
+            }
+            else
+            {
+                buttonLike.Text = "Like";
+            }
         }
 
         private void updateDislikeButtonText()
         {
-            // TODO: implement this
+            if (_imageItems[_currImageIndex].disliked)
+            {
+                buttonLike.Text = "Undislike";
+            }
+            else
+            {
+                buttonLike.Text = "Dislike";
+            }
         }
 
         private void updateUnvisitButtonText()
         {
-            // TODO: implement this
+            buttonUnvisit.Text = "Unvisit";
         }
 
         private void showImage()
@@ -154,7 +168,7 @@ namespace ExtendableImageManager.UI
 
         private void buttonFilter_Click(object sender, EventArgs e)
         {
-
+            // TODO: do filtering here
         }
 
         private void buttonPrev_Click(object sender, EventArgs e)
@@ -167,6 +181,124 @@ namespace ExtendableImageManager.UI
         {
             showNextImage();
             _timeTick = 0;
+        }
+
+        private void toggle_like()
+        {
+            if (_imageItems.Count > 0)
+            {
+                _imageItems[_currImageIndex].liked = !_imageItems[_currImageIndex].liked;
+                if (_imageItems[_currImageIndex].liked)
+                {
+                    _imageItems[_currImageIndex].disliked = false;
+                }
+                updateLikeButtonText();
+                updateDislikeButtonText();
+            }
+        }
+
+        private void toggle_dislike()
+        {
+            if (_imageItems.Count > 0)
+            {
+                _imageItems[_currImageIndex].disliked = !_imageItems[_currImageIndex].disliked;
+                if (_imageItems[_currImageIndex].disliked)
+                {
+                    _imageItems[_currImageIndex].liked = false;
+                }
+                updateDislikeButtonText();
+                updateLikeButtonText();
+            }
+        }
+
+        private void toggle_unvisit()
+        {
+            if (_imageItems.Count > 0)
+            {
+                _imageItems[_currImageIndex].visited = false;
+                updateUnvisitButtonText();
+            }
+        }
+
+        private void buttonLike_Click(object sender, EventArgs e)
+        {
+            toggle_like();
+        }
+
+        private void buttonDislike_Click(object sender, EventArgs e)
+        {
+            toggle_dislike();
+        }
+
+        private void buttonUnvisit_Click(object sender, EventArgs e)
+        {
+            toggle_unvisit();
+        }
+
+        private void ViewerForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case '[':
+                    buttonPrev.PerformClick();
+                    break;
+                case ']':
+                    buttonNext.PerformClick();
+                    break;
+                case 'l':
+                    buttonLike.PerformClick();
+                    break;
+                case 'd':
+                    buttonDislike.PerformClick();
+                    break;
+                case 'v':
+                    buttonUnvisit.PerformClick();
+                    break;
+                case '+':
+                    if (trackBarAutoSlide.Value < trackBarAutoSlide.Maximum)
+                    {
+                        trackBarAutoSlide.Value += 1;
+                    }
+                    break;
+                case '-':
+                    if (trackBarAutoSlide.Value > trackBarAutoSlide.Minimum)
+                    {
+                        trackBarAutoSlide.Value -= 1;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void timerAutoSlide_Tick(object sender, EventArgs e)
+        {
+            if (trackBarAutoSlide.Value == 0)
+            {
+                timerAutoSlide.Stop();
+                return;
+            }
+
+            _timeTick += 1;
+
+            int modTotal = trackBarAutoSlide.Maximum - trackBarAutoSlide.Value + 1;
+
+            if (_timeTick >= modTotal)
+            {
+                buttonNext.PerformClick();
+            }
+        }
+
+        private void trackBarAutoSlide_ValueChanged(object sender, EventArgs e)
+        {
+            if (trackBarAutoSlide.Value == 0)
+            {
+                timerAutoSlide.Stop();
+            }
+            else
+            {
+                timerAutoSlide.Start();
+            }
         }
     }
 }

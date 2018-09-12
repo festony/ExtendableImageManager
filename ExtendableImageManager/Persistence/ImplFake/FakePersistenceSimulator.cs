@@ -240,5 +240,10 @@ namespace ExtendableImageManager.Persistence.ImplFake
                 return _ignoredTags;
             }
         }
+
+        public void DeleteImageFile(ImageItem image)
+        {
+            // TODO: implement this
+        }
     }
 }

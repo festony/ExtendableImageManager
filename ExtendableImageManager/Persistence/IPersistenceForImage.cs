@@ -25,5 +25,7 @@ namespace ExtendableImageManager.Persistence
         void UnignoreTag(string tag);
 
         Dictionary<string, TagItem> AllIgnoredTags { get; }
+
+        void DeleteImageFile(ImageItem image);
     }
 }

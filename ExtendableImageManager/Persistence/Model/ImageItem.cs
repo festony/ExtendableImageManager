@@ -20,6 +20,7 @@ namespace ExtendableImageManager.Persistence.Model
         public bool fetched = false;
         public bool visited = false;
         public bool liked = false;
+        // disliked == true means in certain case the image can be deleted, and the fetched will turn to false
         public bool disliked = false;
     }
 }
