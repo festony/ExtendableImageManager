@@ -51,6 +51,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Crawler\ICrawler.cs" />
+    <Compile Include="UI\FilterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FilterForm.Designer.cs">
+      <DependentUpon>FilterForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\TagManagementForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +113,9 @@
     </Compile>
     <EmbeddedResource Include="UI\FetcherForm.resx">
       <DependentUpon>FetcherForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FilterForm.resx">
+      <DependentUpon>FilterForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

@@ -1,4 +1,5 @@
 ﻿using ExtendableImageManager.Core;
+using ExtendableImageManager.Persistence;
 using ExtendableImageManager.Persistence.Model;
 using System;
 using System.Collections.Generic;
@@ -53,12 +54,10 @@ namespace ExtendableImageManager.UI
             labelFileName.Text = "-";
         }
 
-        private void doFiltering()
+        public void UpdateImages(FileFilter filter)
         {
-            // TODO: implement this
-            // open filter form
             resetOptions();
-            _imageItems = _mainControl.Persistence.GetImages(null);
+            _imageItems = _mainControl.Persistence.GetImages(filter);
             _imageItems = _imageItems.Where(img => !img.fileName.Contains("webm")).ToList();
             showImage();
         }
@@ -160,15 +159,15 @@ namespace ExtendableImageManager.UI
         private void ViewerForm_Shown(object sender, EventArgs e)
         {
             // TODO: make this right
-            resetOptions();
-            _imageItems = _mainControl.Persistence.GetImages(null);
-            _imageItems = _imageItems.Where(img => !img.fileName.Contains("webm")).ToList();
-            showImage();
+            //resetOptions();
+            //_imageItems = _mainControl.Persistence.GetImages(null);
+            //_imageItems = _imageItems.Where(img => !img.fileName.Contains("webm")).ToList();
+            //showImage();
         }
 
         private void buttonFilter_Click(object sender, EventArgs e)
         {
-            // TODO: do filtering here
+            _mainControl.FilterForm.Show();
         }
 
         private void buttonPrev_Click(object sender, EventArgs e)

@@ -29,6 +29,7 @@ namespace ExtendableImageManager.Core
         private FetcherForm _fetcherForm;
         private TagManagementForm _tagManagementForm;
         private ViewerForm _viewerForm;
+        private FilterForm _filterForm;
         private IPersistenceForImage _persistence;
         private IFileStorage _fileStorage;
         private ICrawler _crawler;
@@ -81,6 +82,14 @@ namespace ExtendableImageManager.Core
             get
             {
                 return _viewerForm;
+            }
+        }
+
+        public FilterForm FilterForm
+        {
+            get
+            {
+                return _filterForm;
             }
         }
 
@@ -143,6 +152,7 @@ namespace ExtendableImageManager.Core
             _tagManagementForm.Init(this);
             _viewerForm = new ViewerForm();
             _viewerForm.Init(this);
+            _filterForm = new FilterForm();
             _persistence = new FakePersistenceSimulator();
             _fileStorage = new HierarchyFileStorage();
             _crawler = new SimpleCrawler();
@@ -158,14 +168,17 @@ namespace ExtendableImageManager.Core
         public void Init(string baseFolder)
         {
             _baseFolder = baseFolder;
+
+            _persistence.Init(this);
+            _fileStorage.Init(this);
+            _crawler.Init(this);
+
             //_mainForm.Init(this);
             //_testForm.Init(this);
             _fetcherForm.Init(this);
             //_tagManagementForm.Init(this);
             //_viewerForm.Init(this);
-            _persistence.Init(this);
-            _fileStorage.Init(this);
-            _crawler.Init(this);
+            _filterForm.Init(this);
 
             // TODO: remove testing code
             //temp();
