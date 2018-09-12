@@ -230,5 +230,7 @@ namespace ExtendableImageManager.UI
             _mainControl.ViewerForm.UpdateImages(_fileFilter);
             Close();
         }
+
+        // TODO: NOT set
     }
 }

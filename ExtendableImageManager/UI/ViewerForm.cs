@@ -122,6 +122,7 @@ namespace ExtendableImageManager.UI
                 listBoxArtists.Items.AddRange(allArtists);
 
                 labelCurrentIndex.Text = _currImageIndex.ToString();
+                labelTotalCount.Text = _imageItems.Count.ToString();
                 labelFileName.Text = Path.GetFileNameWithoutExtension(image.fileName);
             }
             else
