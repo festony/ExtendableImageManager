@@ -191,6 +191,64 @@ namespace ExtendableImageManager.Persistence.ImplFake
             }
         }
 
+        private bool isImageItemMatchingOrTagsCriteria(ImageItem image, HashSet<string> orTags)
+        {
+            HashSet<string> tags = new HashSet<string>(image.tags.Select(t => t.tagName).ToList());
+            foreach(var t in orTags)
+            {
+                if (tags.Contains(t))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool isImageItemMatchingAndOrTagsCriteria(ImageItem image, HashSet<HashSet<string>> andOrTags)
+        {
+            foreach(var tagSet in andOrTags)
+            {
+                if (!isImageItemMatchingOrTagsCriteria(image, tagSet))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool isImageItemMatching(ImageItem image, FileFilter filter)
+        {
+            if (!isImageItemMatchingAndOrTagsCriteria(image, filter.AndOrCriteria))
+            {
+                return false;
+            }
+            if (!filter.IncludeLiked && image.liked)
+            {
+                return false;
+            }
+            if (!filter.IncludeNotLiked && !image.liked)
+            {
+                return false;
+            }
+            if (!filter.IncludeDisliked && image.disliked)
+            {
+                return false;
+            }
+            if (!filter.IncludeNotDisliked && !image.disliked)
+            {
+                return false;
+            }
+            if (!filter.IncludeVisited && image.visited)
+            {
+                return false;
+            }
+            if (!filter.IncludeNotVisited && !image.visited)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public List<ImageItem> GetImages(FileFilter filter)
         {
             if (_mainControl == null)
@@ -198,13 +256,26 @@ namespace ExtendableImageManager.Persistence.ImplFake
                 Trace.WriteLine("Error: function called before initialize.");
                 throw new ResourceNotInitializedException(this.GetType().Name + ": function " + new StackTrace().GetFrame(1).GetMethod().Name + " called without inialization.");
             }
-            // TODO: implement this
             if (filter == null)
             {
-                // return all images;
                 return _imageItems.Values.ToList();
             }
-            return null;
+
+            List<ImageItem> result = _imageItems.Values.Where(i => isImageItemMatching(i, filter)).ToList();
+
+            if (filter.DoShuffle && result.Count > 1)
+            {
+                Random rand = new Random();
+                for (int i = result.Count - 1; i >= 0; i--)
+                {
+                    int j = rand.Next(0, i + 1);
+                    var temp = result[i];
+                    result[i] = result[j];
+                    result[j] = temp;
+                }
+            }
+
+            return result;
         }
 
         public void IgnoreTag(string tag)
