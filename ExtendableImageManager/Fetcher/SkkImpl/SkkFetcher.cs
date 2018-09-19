@@ -162,6 +162,14 @@ namespace ExtendableImageManager.Fetcher.SkkImpl
         //    }
         //}
 
+            // TODO: multithread (executor pool?)
+            // TODO: show webm
+            // TODO: improve counting
+            // TODO: retry after exception and period of time
+            // TODO: re-init all winforms when re-init
+            // TODO: counts show in main form
+            // TODO: 
+
         public List<string> ExtractPageUrls(List<string> urls)
         {
             if (_mainControl == null)

@@ -36,6 +36,7 @@
             this.buttonFetch = new System.Windows.Forms.Button();
             this.buttonTag = new System.Windows.Forms.Button();
             this.buttonView = new System.Windows.Forms.Button();
+            this.buttonDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -114,11 +115,22 @@
             this.buttonView.UseVisualStyleBackColor = true;
             this.buttonView.Click += new System.EventHandler(this.buttonView_Click);
             // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Location = new System.Drawing.Point(549, 257);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(75, 50);
+            this.buttonDelete.TabIndex = 8;
+            this.buttonDelete.Text = "Delete";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(687, 353);
+            this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonView);
             this.Controls.Add(this.buttonTag);
             this.Controls.Add(this.buttonFetch);
@@ -145,5 +157,6 @@
         private System.Windows.Forms.Button buttonFetch;
         private System.Windows.Forms.Button buttonTag;
         private System.Windows.Forms.Button buttonView;
+        private System.Windows.Forms.Button buttonDelete;
     }
 }

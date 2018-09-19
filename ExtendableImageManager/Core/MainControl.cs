@@ -180,48 +180,68 @@ namespace ExtendableImageManager.Core
             //_viewerForm.Init(this);
             _filterForm.Init(this);
 
+            // TODO: show statistics
+
             // TODO: remove testing code
             //temp();
         }
 
         void temp()
         {
-            List<ImageItem> images = _persistence.GetImages(null);
-            var c0 = 0;
-            var c1 = 0;
-            var c2 = 0;
-            var c3 = 0;
-            var c4 = 0;
-            images.ForEach(i =>
-            {
-                c0++;
-                if (i.visited)
-                {
-                    c1++;
-                }
-                if (i.liked)
-                {
-                    c2++;
-                }
-                if (i.disliked)
-                {
-                    c3++;
-                }
-                if (i.fetched)
-                {
-                    c4++;
-                }
-            });
-            Trace.WriteLine("-------- c0 " + c0);
-            Trace.WriteLine("-------- c1 " + c1);
-            Trace.WriteLine("-------- c2 " + c2);
-            Trace.WriteLine("-------- c3 " + c3);
-            Trace.WriteLine("-------- c4 " + c4);
+            //List<ImageItem> images = _persistence.GetImages(null);
+            //var c0 = 0;
+            //var c1 = 0;
+            //var c2 = 0;
+            //var c3 = 0;
+            //var c4 = 0;
+            //images.ForEach(i =>
+            //{
+            //    c0++;
+            //    if (i.visited)
+            //    {
+            //        c1++;
+            //    }
+            //    if (i.liked)
+            //    {
+            //        c2++;
+            //    }
+            //    if (i.disliked)
+            //    {
+            //        c3++;
+            //    }
+            //    if (i.fetched)
+            //    {
+            //        c4++;
+            //    }
+            //});
+            //Trace.WriteLine("-------- c0 " + c0);
+            //Trace.WriteLine("-------- c1 " + c1);
+            //Trace.WriteLine("-------- c2 " + c2);
+            //Trace.WriteLine("-------- c3 " + c3);
+            //Trace.WriteLine("-------- c4 " + c4);
 
             //images.ForEach(i =>
             //{
             //    i.fetched = true;
             //});
+            Trace.WriteLine("------x------ xxxx");
+            var allArtists = _persistence.AllTags.Values.Where(t => t.tagType == "artist").ToList();
+            var allImages = _persistence.GetImages(null);
+            foreach (var t in allArtists)
+            {
+                int count = 0;
+                foreach(var img in allImages)
+                {
+                    if (img.tags.Select(it => it.tagName).ToList().Contains(t.tagName))
+                    {
+                        count++;
+                    }
+                }
+                if (count >= 490)
+                {
+                    Trace.WriteLine("------x------ " + t.tagName + " " + count);
+                }
+            }
         }
 
         public void Uninit()
@@ -229,6 +249,18 @@ namespace ExtendableImageManager.Core
             _persistence.Uninit();
             _fetcherForm.Uninit();
             _baseFolder = null;
+        }
+
+        public void DeleteDislikedItems()
+        {
+            _persistence.GetImages(null).Where(img => img.fetched && !string.IsNullOrWhiteSpace(img.fileName) && img.visited && img.disliked && !img.liked).ToList().ForEach(img => {
+                _fileStorage.DeleteFile(img.fileName);
+                img.fileName = null;
+                img.fetched = false;
+                img.visited = false;
+                img.liked = false;
+                img.disliked = true;
+            });
         }
 
         // TODO: implement disliked image deleting feature

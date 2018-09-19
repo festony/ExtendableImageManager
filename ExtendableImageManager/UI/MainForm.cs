@@ -86,5 +86,14 @@ namespace ExtendableImageManager.UI
             }
             _mainControl.ViewerForm.Show();
         }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult res = MessageBox.Show("Sure to delete disliked items?");
+            if (res == DialogResult.OK)
+            {
+                _mainControl.DeleteDislikedItems();
+            }
+        }
     }
 }

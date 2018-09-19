@@ -83,7 +83,7 @@
             this.numericUpDownFetchBatchSize.Size = new System.Drawing.Size(120, 21);
             this.numericUpDownFetchBatchSize.TabIndex = 3;
             this.numericUpDownFetchBatchSize.Value = new decimal(new int[] {
-            100,
+            3000,
             0,
             0,
             0});
