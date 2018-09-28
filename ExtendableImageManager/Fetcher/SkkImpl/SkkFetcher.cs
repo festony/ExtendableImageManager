@@ -163,12 +163,18 @@ namespace ExtendableImageManager.Fetcher.SkkImpl
         //}
 
             // TODO: multithread (executor pool?)
+            // TODO: background worker to show progress
             // TODO: show webm
             // TODO: improve counting
             // TODO: retry after exception and period of time
             // TODO: re-init all winforms when re-init
             // TODO: counts show in main form
-            // TODO: 
+            // TODO: real time update counts display
+            // TODO: in multithread use different proxies for concurrent fetching
+            // TODO: add url in viewer form
+            // TODO: image rotating
+            // TODO: image exporting
+            // TODO: image zoom in/out
 
         public List<string> ExtractPageUrls(List<string> urls)
         {
