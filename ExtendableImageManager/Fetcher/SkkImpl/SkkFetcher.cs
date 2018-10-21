@@ -175,6 +175,7 @@ namespace ExtendableImageManager.Fetcher.SkkImpl
             // TODO: image rotating
             // TODO: image exporting
             // TODO: image zoom in/out
+            // TODO: change default input path to current exe path
 
         public List<string> ExtractPageUrls(List<string> urls)
         {
